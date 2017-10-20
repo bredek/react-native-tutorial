@@ -14,6 +14,6 @@ import Header from './src/components/header';
 
 export default App = () => {
     return (
-      <Header/>
+      <Header headerText={"Header"}/>
     );
 }
