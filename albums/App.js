@@ -9,11 +9,11 @@ import {
   Text,
   AppRegistry
 } from 'react-native';
+// components
+import Header from './src/components/header';
 
 export default App = () => {
     return (
-        <Text >
-          Some text here
-        </Text>
+      <Header/>
     );
 }
