@@ -7,13 +7,18 @@
 import React from 'react';
 import {
   Text,
+  View,
   AppRegistry
 } from 'react-native';
 // components
-import Header from './src/components/header';
+import Header from './src/components/Header';
+import AlbumList from './src/components/AlbumList';
 
 export default App = () => {
     return (
-      <Header headerText={"Header"}/>
+      <View>
+        <Header headerText={"Header"}/>
+        <AlbumList/>
+      </View>
     );
 }
