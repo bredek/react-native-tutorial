@@ -17,6 +17,6 @@ const styles = {
     marginTop: 10,
   },
 };
-const Card = () => <View style={styles.containerStyle} />;
+const Card = props => <View style={styles.containerStyle}>{props.children}</View>;
 
 export default Card;
