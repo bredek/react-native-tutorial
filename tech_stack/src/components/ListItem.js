@@ -11,16 +11,16 @@ import * as actions from "../actions";
 
 class ListItem extends Component {
   render() {
-    const { title } = this.props.library;
+    const { title, id } = this.props.library;
 
-    console.log(this.props)
-    
     return (
-      <View>
-        <CardSection>
-          <Text>{title}</Text>
-        </CardSection>
-      </View>
+      <TouchableWithoutFeedback onPress={() => this.props.selectLibrary(id)}>
+        <View>
+          <CardSection>
+            <Text>{title}</Text>
+          </CardSection>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
