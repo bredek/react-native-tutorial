@@ -17,14 +17,18 @@ class LoginForm extends Component {
     this.state = {
       email: "",
       password: "",
-      error: ""
+      error: "",
+      loading: false
     };
   }
 
   onButtonPress() {
     const { email, password } = this.state;
 
-    this.setState({ error: "" });
+    this.setState({ 
+      error: "",
+      loading: true
+    });
 
     firebase
       .auth()
@@ -38,6 +42,18 @@ class LoginForm extends Component {
             this.setState({ error: "An error occured!" });
           });
       });
+  }
+
+  renderButton() {
+    if (this.state.loading) {
+      return <Spinner size="small" />;
+    }
+
+    return (
+      <Button onPress={this.onButtonPress.bind(this)}>
+        Log in
+      </Button>
+    );
   }
 
   render() {
@@ -65,7 +81,7 @@ class LoginForm extends Component {
         </CardSection>
         <Text style={styles.errorTextStyle}>{this.state.error}</Text>
         <CardSection>
-          <Button onPress={this.onButtonPress.bind(this)}>Hello!</Button>
+          {this.renderButton()}
         </CardSection>
       </Card>
     );
