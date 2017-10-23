@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import { TextInput, Text, Picker } from "react-native";
-import { Button, Card, CardSection, Input } from "./common";
+import { Button, Card, CardSection, Input, Spinner } from "./common";
 
 const styles = {
   errorTextStyle: {
