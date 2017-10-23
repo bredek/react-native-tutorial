@@ -1,15 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Text } from "react-native";
-// import ListItem from "./ListItem";
+import { ListView } from 'react-native';
+import ListItem from "./ListItem";
 
 class LibraryList extends Component {
+  componentWillMount() {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
+    this.dataSource = ds.cloneWithRows(this.props.libraries);
+  }
+
+  renderRow(library) {
+    return <ListItem library={library} />;
+  }
+
   render() {
     const { libraries } = this.props;
     console.log(libraries);
-    return(
-        <Text>Test</Text>
-    )
+    return <ListView dataSource={this.dataSource} renderRow={this.renderRow} />;
   }
 }
 
