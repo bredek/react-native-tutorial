@@ -7,11 +7,14 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { CardSection } from "./common";
+import * as actions from "../actions";
 
 class ListItem extends Component {
   render() {
     const { title } = this.props.library;
 
+    console.log(this.props)
+    
     return (
       <View>
         <CardSection>
@@ -22,4 +25,4 @@ class ListItem extends Component {
   }
 }
 
-export default ListItem;
+export default connect(null, actions)(ListItem);
