@@ -5,24 +5,17 @@
  */
 
 import React from 'react';
-import {
-  Text,
-  View,
-  AppRegistry
-} from 'react-native';
-
-import axios from 'axios';
+import { View } from 'react-native';
 
 // components
 import Header from './src/components/Header';
 import AlbumList from './src/components/AlbumList';
 
-export default App = () => {
-    return (
-      <View>
+const App = () => (
+  <View style={{ flex: 1 }}>
+    <Header headerText="Header" />
+    <AlbumList />
+  </View>
+);
 
-        <Header headerText={"Header"}/>
-        <AlbumList/>
-      </View>
-    );
-}
+export default App;
