@@ -14,7 +14,7 @@ class ListItem extends Component {
     console.log(this.props.library.id);
     console.log(this.props.selectedLibraryId);
 
-    if (this.props.library.id === this.props.selectedLibraryId) {
+    if (this.props.expanded) {
       return (
         <CardSection>
           <Text style={{ flex: 1 }}>{this.props.library.description}</Text>
@@ -39,8 +39,10 @@ class ListItem extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { selectedLibraryId: state.selectedLibraryId };
+const mapStateToProps = (state, ownProps) => {
+  const expanded = state.selectedLibraryId === ownProps.library.id;
+
+  return { expanded };
 };
 
 export default connect(mapStateToProps, actions)(ListItem);
