@@ -1,47 +1,36 @@
-import React, { Component } from "react";
-import firebase from "firebase";
-import { TextInput, Text, Picker } from "react-native";
-import { Button, Card, CardSection, Input, Spinner } from "./common";
-
-const styles = {
-  errorTextStyle: {
-    fontSize: 20,
-    alignSelf: "center",
-    color: "red"
-  }
-};
+import React, { Component } from 'react';
+import { Text } from 'react-native';
+import firebase from 'firebase';
+import { Button, Card, CardSection, Input, Spinner } from './common';
 
 class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-      error: "",
-      loading: false
-    };
-  }
+  state = { email: '', password: '', error: '', loading: false };
 
   onButtonPress() {
     const { email, password } = this.state;
 
-    this.setState({ 
-      error: "",
-      loading: true
-    });
+    this.setState({ error: '', loading: true });
 
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      // .then(this.onLoginSuccess.bind(this))
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(this.onLoginSuccess.bind(this))
       .catch(() => {
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(email, password)
-          .catch(() => {
-            this.setState({ error: "An error occured!" });
-          });
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then(this.onLoginSuccess.bind(this))
+          .catch(this.onLoginFail.bind(this));
       });
+  }
+
+  onLoginFail() {
+    this.setState({ error: 'Authentication Failed', loading: false });
+  }
+
+  onLoginSuccess() {
+    this.setState({
+      email: '',
+      password: '',
+      loading: false,
+      error: ''
+    });
   }
 
   renderButton() {
@@ -61,15 +50,13 @@ class LoginForm extends Component {
       <Card>
         <CardSection>
           <Input
-            label={"Hello"}
-            placeholder={"email@example.com"}
-            value={this.state.text}
-            onChangeText={email => {
-              this.setState({ email });
-              console.log(email);
-            }}
+            placeholder="user@gmail.com"
+            label="Email"
+            value={this.state.email}
+            onChangeText={email => this.setState({ email })}
           />
         </CardSection>
+
         <CardSection>
           <Input
             secureTextEntry
@@ -79,7 +66,11 @@ class LoginForm extends Component {
             onChangeText={password => this.setState({ password })}
           />
         </CardSection>
-        <Text style={styles.errorTextStyle}>{this.state.error}</Text>
+
+        <Text style={styles.errorTextStyle}>
+          {this.state.error}
+        </Text>
+
         <CardSection>
           {this.renderButton()}
         </CardSection>
@@ -87,5 +78,13 @@ class LoginForm extends Component {
     );
   }
 }
+
+const styles = {
+  errorTextStyle: {
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'red'
+  }
+};
 
 export default LoginForm;
