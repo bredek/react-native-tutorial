@@ -10,6 +10,9 @@ import { CardSection } from "./common";
 import * as actions from "../actions";
 
 class ListItem extends Component {
+  componentWillUpdate() {
+    LayoutAnimation.spring();
+  }
   renderDescription() {
     console.log(this.props.library.id);
     console.log(this.props.selectedLibraryId);
